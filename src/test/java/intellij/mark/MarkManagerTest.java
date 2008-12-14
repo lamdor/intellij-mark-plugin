@@ -50,19 +50,6 @@ public class MarkManagerTest extends MarkTestCase {
         assertNull(markManager.getEditorMarks().get(editor));
     }
 
-    private String contentsOfClipboard() {
-        Transferable contents = CopyPasteManager.getInstance().getContents();
-        String copiedData = null;
-        try {
-            copiedData = (String) contents.getTransferData(DataFlavor.stringFlavor);
-        } catch (UnsupportedFlavorException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return copiedData;
-    }
-
     public void testShouldJustCopyTextIfEditorHasNoMark() {
         assumeClipboardIs("This is previous text");
         Editor editor = createEditorWithText("012345678901234567890123456789");
@@ -76,13 +63,9 @@ public class MarkManagerTest extends MarkTestCase {
 
     }
 
-    private void assumeClipboardIs(String data) {
-        CopyPasteManager.getInstance().setContents(new StringSelection(data));
-    }
-
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
-        Application application = ApplicationManager.getApplication();
-        markManager = application.getComponent(MarkManager.class);
+        markManager = getMarkManager();
     }
 }

@@ -1,9 +1,13 @@
 <!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
 <idea-plugin>
     <actions>
-        <action id="SetMark" class="intellij.mark.SetMarkAction" text="Set Mark"
-                description="Sets the mark (like emacs)">
+        <action id="intellij.mark.SetMarkAction" class="intellij.mark.SetMarkAction" text="Set Mark" description="Sets the mark (like emacs)">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <add-to-group group-id="EditorActions" anchor="last"/>
+        </action>
+        <action id="intellij.mark.CopyMarkRangeAction" class="intellij.mark.CopyMarkRangeAction" text="Copy Mark Range">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <add-to-group group-id="EditorActions" anchor="last"/>
         </action>
     </actions>
     <application-components>
