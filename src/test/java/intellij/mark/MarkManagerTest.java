@@ -1,21 +1,14 @@
 package intellij.mark;
 
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.Application;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.SelectionModel;
-import com.intellij.openapi.ide.CopyPasteManager;
 
 import java.util.Map;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.datatransfer.StringSelection;
-import java.io.IOException;
 
 public class MarkManagerTest extends MarkTestCase {
     private MarkManager markManager;
+    private Editor editor;
 
     public void testShouldSetMark() {
         Editor editor = createEditorWithText("Some text");
@@ -34,7 +27,7 @@ public class MarkManagerTest extends MarkTestCase {
         assertEquals(6, listener.getCurrentOffset());
     }
 
-    public void testShouldCopyTextFromMarkRange() {
+    public void testShouldSetSelectionToMarkRange() {
         assumeClipboardIs("This is previous text");
         Editor editor = createEditorWithText("012345678901234567890123456789");
         CaretModel caretModel = editor.getCaretModel();
@@ -44,22 +37,22 @@ public class MarkManagerTest extends MarkTestCase {
 
         caretModel.moveToOffset(15);
 
-        markManager.copyMarkRange(editor);
+        markManager.setSelectionToMarkRange(editor);
 
-        assertEquals("5678901234", contentsOfClipboard());
-        assertNull(markManager.getEditorMarks().get(editor));
+        SelectionModel selectionModel = editor.getSelectionModel();
+        assertEquals("5678901234", selectionModel.getSelectedText());
     }
 
-    public void testShouldJustCopyTextIfEditorHasNoMark() {
+    public void testShouldNotDoAnythingIfThereAlreadyINoMark() {
         assumeClipboardIs("This is previous text");
         Editor editor = createEditorWithText("012345678901234567890123456789");
 
         SelectionModel selectionModel = editor.getSelectionModel();
         selectionModel.setSelection(4, 14);
 
-        markManager.copyMarkRange(editor);
+        markManager.setSelectionToMarkRange(editor);
 
-        assertEquals("4567890123", contentsOfClipboard());
+        assertEquals("4567890123", selectionModel.getSelectedText());
 
     }
 

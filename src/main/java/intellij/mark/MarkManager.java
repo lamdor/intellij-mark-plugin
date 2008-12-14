@@ -1,10 +1,9 @@
 package intellij.mark;
 
 import com.intellij.openapi.components.ApplicationComponent;
-import com.intellij.openapi.editor.EditorFactory;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.CaretModel;
-import com.intellij.openapi.editor.SelectionModel;
+import com.intellij.openapi.editor.*;
+import com.intellij.openapi.ide.CopyPasteManager;
+import com.intellij.openapi.actionSystem.ActionManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -44,7 +43,7 @@ public class MarkManager implements ApplicationComponent {
     }
 
 
-    public void copyMarkRange(Editor editor) {
+    public SelectionModel setSelectionToMarkRange(Editor editor) {
         SelectionModel selectionModel = editor.getSelectionModel();
         MarkCaretListener markCaretListener = editorMarks.get(editor);
         if (markCaretListener != null) {
@@ -52,6 +51,7 @@ public class MarkManager implements ApplicationComponent {
             editor.getCaretModel().removeCaretListener(markCaretListener);
             editorMarks.remove(editor);
         }
-        selectionModel.copySelectionToClipboard();
+        return selectionModel;
     }
+
 }

@@ -3,7 +3,7 @@ package intellij.mark;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.CaretModel;
 
-public class CopyMarkRangeActionTest extends MarkTestCase {
+public class CutMarkRangeActionTest extends MarkTestCase {
 
     public void testDummy() {
         assertTrue(true);
@@ -22,6 +22,7 @@ public class CopyMarkRangeActionTest extends MarkTestCase {
 
         invokeActionInEditor(editor, "intellij.mark.CopyMarkRangeAction");
         assertEquals("5678901234", contentsOfClipboard());
+        assertEquals("0123456789", editor.getDocument().getText());
     }
 
 }

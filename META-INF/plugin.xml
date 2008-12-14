@@ -9,6 +9,10 @@
             <add-to-group group-id="ToolsMenu" anchor="last"/>
             <add-to-group group-id="EditorActions" anchor="last"/>
         </action>
+        <action id="intellij.mark.CutMarkRangeAction" class="intellij.mark.CutMarkRangeAction" text="Cut Mark Range">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <add-to-group group-id="EditorActions" anchor="last"/>
+        </action>
     </actions>
     <application-components>
         <component>
