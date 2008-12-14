@@ -5,7 +5,11 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.editor.*;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.application.Application;
 import com.intellij.testFramework.LightIdeaTestCase;
+
+import java.util.Map;
 
 public class SetMarkActionTest extends MarkTestCase {
 
@@ -23,12 +27,13 @@ public class SetMarkActionTest extends MarkTestCase {
 
         model.moveToOffset(10);
 
-        SelectionModel selectionModel = editor.getSelectionModel();
-        assertNotNull(selectionModel);
-        assertNotNull(selectionModel.getSelectedText());
-        assertEquals(" is my", selectionModel.getSelectedText());
-        assertEquals(4, selectionModel.getSelectionStart());
-        assertEquals(10, selectionModel.getSelectionEnd());
+        Application application = ApplicationManager.getApplication();
+        MarkManager markManager = application.getComponent(MarkManager.class);
+        Map<Editor,MarkCaretListener> editorMarks = markManager.getEditorMarks();
+        MarkCaretListener markCaretListener = editorMarks.get(editor);
+        assertNotNull(markCaretListener);
+        assertEquals(4, markCaretListener.getOriginalOffset());
+        assertEquals(10, markCaretListener.getCurrentOffset());
     }
 
 }

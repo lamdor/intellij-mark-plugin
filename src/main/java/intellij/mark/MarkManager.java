@@ -7,10 +7,19 @@ import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.SelectionModel;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+import java.util.HashMap;
+
 
 public class MarkManager implements ApplicationComponent {
-    
+    public Map<Editor, MarkCaretListener> getEditorMarks() {
+        return editorMarks;
+    }
+
+    Map<Editor, MarkCaretListener> editorMarks;
+
     public MarkManager() {
+        editorMarks = new HashMap<Editor, MarkCaretListener>();
     }
 
     public void initComponent() {
@@ -32,7 +41,8 @@ public class MarkManager implements ApplicationComponent {
         Editor editor = allEditors[0];
         CaretModel caretModel = editor.getCaretModel();
         SelectionModel selectionModel = editor.getSelectionModel();
-        MarkCaretListener listener = new MarkCaretListener(caretModel, selectionModel);
+        MarkCaretListener listener = new MarkCaretListener(caretModel);
         caretModel.addCaretListener(listener);
+        editorMarks.put(editor, listener);
     }
 }
