@@ -45,10 +45,13 @@ public class MarkManager implements ApplicationComponent {
 
 
     public void copyMarkRange(Editor editor) {
-        MarkCaretListener markCaretListener = editorMarks.get(editor);
-
         SelectionModel selectionModel = editor.getSelectionModel();
-        selectionModel.setSelection(markCaretListener.getOriginalOffset(), markCaretListener.getCurrentOffset());
+        MarkCaretListener markCaretListener = editorMarks.get(editor);
+        if (markCaretListener != null) {
+            selectionModel.setSelection(markCaretListener.getOriginalOffset(), markCaretListener.getCurrentOffset());
+            editor.getCaretModel().removeCaretListener(markCaretListener);
+            editorMarks.remove(editor);
+        }
         selectionModel.copySelectionToClipboard();
     }
 }
