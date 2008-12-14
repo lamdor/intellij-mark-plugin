@@ -35,10 +35,7 @@ public class MarkManager implements ApplicationComponent {
         return "MarkManager";
     }
 
-    public void setMark() {
-        EditorFactory editorFactory = EditorFactory.getInstance();
-        Editor[] allEditors = editorFactory.getAllEditors();
-        Editor editor = allEditors[0];
+    public void setMark(Editor editor) {
         CaretModel caretModel = editor.getCaretModel();
         SelectionModel selectionModel = editor.getSelectionModel();
         MarkCaretListener listener = new MarkCaretListener(caretModel);

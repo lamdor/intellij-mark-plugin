@@ -3,11 +3,13 @@ package intellij.mark;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.editor.*;
+import com.intellij.openapi.editor.actionSystem.EditorAction;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.Application;
 import com.intellij.testFramework.LightIdeaTestCase;
+import com.intellij.ide.DataManager;
 
 import java.util.Map;
 
@@ -22,9 +24,8 @@ public class SetMarkActionTest extends MarkTestCase {
         assertEquals(4, model.getOffset());
 
         ActionManager actionManager = ActionManager.getInstance();
-        AnAction anAction = actionManager.getAction("SetMark");
-        anAction.actionPerformed(null);
-
+        EditorAction editorAction = (EditorAction) actionManager.getAction("SetMark");
+        editorAction.actionPerformed(editor, DataManager.getInstance().getDataContext());
         model.moveToOffset(10);
 
         Application application = ApplicationManager.getApplication();
