@@ -1,6 +1,12 @@
 <!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
 <idea-plugin>
-  <name>Plugin name here</name>
+    <actions>
+        <action id="SetMark" class="intellij.mark.SetMarkAction" text="Set Mark"
+                description="Sets the mark (like emacs)">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
+    <name>Plugin name here</name>
   <description>short description of the plugin</description>
   <version>1.0</version>
   <vendor>YourCompany</vendor>

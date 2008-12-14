@@ -1,12 +1,15 @@
 package intellij.mark;
 
-import org.junit.Test;
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.testFramework.LightIdeaTestCase;
 
-public class SetMarkActionTest {
+public class SetMarkActionTest extends LightIdeaTestCase {
 
-    @Test
-    public void shouldSetMark() {
-        SetMarkAction action = new SetMarkAction();
-        action.actionPerformed(null);
+    public void testShouldSetMark() {
+        ActionManager actionManager = ActionManager.getInstance();
+        AnAction anAction = actionManager.getAction("SetMark");
+        anAction.actionPerformed(null);
     }
+
 }
