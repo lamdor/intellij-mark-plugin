@@ -42,4 +42,13 @@ public class MarkManager implements ApplicationComponent {
         caretModel.addCaretListener(listener);
         editorMarks.put(editor, listener);
     }
+
+
+    public void copyMarkRange(Editor editor) {
+        MarkCaretListener markCaretListener = editorMarks.get(editor);
+
+        SelectionModel selectionModel = editor.getSelectionModel();
+        selectionModel.setSelection(markCaretListener.getOriginalOffset(), markCaretListener.getCurrentOffset());
+        selectionModel.copySelectionToClipboard();
+    }
 }
