@@ -5,18 +5,13 @@
             <add-to-group group-id="ToolsMenu" anchor="last"/>
             <add-to-group group-id="EditorActions" anchor="last"/>
         </action>
-        <action id="intellij.mark.CopyMarkRangeAction" class="intellij.mark.CopyMarkRangeAction" text="Copy Mark Range">
-            <add-to-group group-id="ToolsMenu" anchor="last"/>
-            <add-to-group group-id="EditorActions" anchor="last"/>
-        </action>
-        <action id="intellij.mark.CutMarkRangeAction" class="intellij.mark.CutMarkRangeAction" text="Cut Mark Range">
-            <add-to-group group-id="ToolsMenu" anchor="last"/>
-            <add-to-group group-id="EditorActions" anchor="last"/>
-        </action>
     </actions>
     <application-components>
         <component>
             <implementation-class>intellij.mark.MarkManager</implementation-class>
+        </component>
+        <component>
+            <implementation-class>intellij.mark.DelegatingRangeMarkSelectionActionRegistrar</implementation-class>
         </component>
     </application-components>
     <name>Plugin name here</name>
