@@ -10,8 +10,11 @@ public class DelegatingRangeMarkSelectionAction extends AnAction {
     private AnAction delegatingAction;
 
     public DelegatingRangeMarkSelectionAction(AnAction delegatingAction) {
-        super(delegatingAction.getTemplatePresentation().getText(),
-                delegatingAction.getTemplatePresentation().getDescription(),
+        this(delegatingAction, delegatingAction.getTemplatePresentation().getText());
+    }
+
+    public DelegatingRangeMarkSelectionAction(AnAction delegatingAction, String text) {
+        super(text, delegatingAction.getTemplatePresentation().getDescription(),
                 delegatingAction.getTemplatePresentation().getIcon());
         this.delegatingAction = delegatingAction;
     }

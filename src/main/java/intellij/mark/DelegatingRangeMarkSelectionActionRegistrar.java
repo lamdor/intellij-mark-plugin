@@ -1,8 +1,9 @@
 package intellij.mark;
 
-import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.components.ApplicationComponent;
+import com.intellij.openapi.extensions.PluginId;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -22,17 +23,24 @@ public class DelegatingRangeMarkSelectionActionRegistrar implements ApplicationC
     }
 
     public void initComponent() {
-        for(String actionToDelegate : actionsToDelegate) {
+        for (String actionToDelegate : actionsToDelegate) {
             AnAction action = actionManager.getAction(actionToDelegate);
-            DelegatingRangeMarkSelectionAction markSelectionAction = new DelegatingRangeMarkSelectionAction(action);
 
-            actionManager.unregisterAction(actionToDelegate);
-            actionManager.registerAction(actionToDelegate, markSelectionAction);
+            if (actionToDelegate.startsWith("$")) {
+                DelegatingRangeMarkSelectionAction delegatingAction =
+                        new DelegatingRangeMarkSelectionAction(action, "Mark " + action.getTemplatePresentation().getText());
+                actionManager.registerAction("Mark." + actionToDelegate.replace("$", ""), delegatingAction,
+                        PluginId.getId("Mark"));
+            } else {
+                DelegatingRangeMarkSelectionAction markSelectionAction = new DelegatingRangeMarkSelectionAction(action);
+                actionManager.unregisterAction(actionToDelegate);
+                actionManager.registerAction(actionToDelegate, markSelectionAction);
+            }
         }
     }
 
     public void disposeComponent() {
-        // TODO: insert component disposal logic here
+        // nothing to do
     }
 
     @NotNull

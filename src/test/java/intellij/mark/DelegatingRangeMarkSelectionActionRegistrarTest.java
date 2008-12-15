@@ -13,8 +13,8 @@ public class DelegatingRangeMarkSelectionActionRegistrarTest extends MarkTestCas
                 application.getComponent(DelegatingRangeMarkSelectionActionRegistrar.class);
         assertNotNull(registrar);
 
-        assertActionIsDelegated("$Copy");
-        assertActionIsDelegated("$Cut");
+        assertActionIsDelegated("Mark.Copy");
+        assertActionIsDelegated("Mark.Cut");
         assertActionIsDelegated("EditorToggleColumnMode");
     }
 
