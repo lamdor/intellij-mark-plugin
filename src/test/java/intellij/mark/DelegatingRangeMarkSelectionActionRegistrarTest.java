@@ -15,6 +15,7 @@ public class DelegatingRangeMarkSelectionActionRegistrarTest extends MarkTestCas
 
         assertActionIsDelegated("$Copy");
         assertActionIsDelegated("$Cut");
+        assertActionIsDelegated("EditorToggleColumnMode");
     }
 
     private void assertActionIsDelegated(String actionId) {
