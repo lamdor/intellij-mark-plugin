@@ -16,8 +16,8 @@ public class DelegatingRangeMarkSelectionActionTest extends MarkTestCase {
         ActionManager actionManager = ActionManager.getInstance();
 
         FakeAction fakeAction = new FakeAction();
-        actionManager.registerAction("intellij.mark.test.delegated.fake",
-                new DelegatingRangeMarkSelectionAction(fakeAction));
+        DelegatingRangeMarkSelectionAction delegatingAction = new DelegatingRangeMarkSelectionAction(fakeAction);
+        actionManager.registerAction("intellij.mark.test.delegated.fake", delegatingAction);
 
         MarkManager markManager = getMarkManager();
         markManager.setMark(editor);
@@ -27,10 +27,15 @@ public class DelegatingRangeMarkSelectionActionTest extends MarkTestCase {
         invokeActionInEditor(editor, "intellij.mark.test.delegated.fake");
         assertEquals("5678901234", editor.getSelectionModel().getSelectedText());
         assertTrue(fakeAction.actionWasPerformed);
+        assertEquals("Fake Action", delegatingAction.getTemplatePresentation().getText());
     }
 
     public static class FakeAction extends AnAction {
         public boolean actionWasPerformed;
+
+        public FakeAction() {
+            super("Fake Action");
+        }
 
         public void actionPerformed(AnActionEvent anActionEvent) {
             actionWasPerformed = true;
