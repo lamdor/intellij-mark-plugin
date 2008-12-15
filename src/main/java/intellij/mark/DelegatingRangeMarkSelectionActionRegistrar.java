@@ -17,6 +17,7 @@ public class DelegatingRangeMarkSelectionActionRegistrar implements ApplicationC
         this.actionManager = actionManager;
         actionsToDelegate = new ArrayList<String>();
         actionsToDelegate.add("$Copy");
+        actionsToDelegate.add("$Cut");
     }
 
     public void initComponent() {

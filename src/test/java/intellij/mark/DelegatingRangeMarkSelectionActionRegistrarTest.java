@@ -13,7 +13,13 @@ public class DelegatingRangeMarkSelectionActionRegistrarTest extends MarkTestCas
                 application.getComponent(DelegatingRangeMarkSelectionActionRegistrar.class);
         assertNotNull(registrar);
 
-        assertTrue(actionManager.getAction("$Copy") instanceof DelegatingRangeMarkSelectionAction);
+        assertActionIsDelegated("$Copy");
+        assertActionIsDelegated("$Cut");
+    }
+
+    private void assertActionIsDelegated(String actionId) {
+        assertTrue("Action " + actionId + " is not delegated",
+                actionManager.getAction(actionId) instanceof DelegatingRangeMarkSelectionAction);
     }
 
     protected void setUp() throws Exception {
