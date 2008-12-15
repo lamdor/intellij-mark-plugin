@@ -39,7 +39,7 @@ public class MarkTestCase extends LightIdeaTestCase {
     }
 
     protected Editor createEditorWithText(String text) {
-        Document document = editorFactory.createDocument(text);
+        Document document = getDocument(createFile("test.txt", text));
         Editor editor = editorFactory.createEditor(document);
         openEditors.add(editor);
         return editor;

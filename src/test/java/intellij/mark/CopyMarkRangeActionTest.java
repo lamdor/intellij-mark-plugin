@@ -9,7 +9,7 @@ public class CopyMarkRangeActionTest extends MarkTestCase {
         assertTrue(true);
     }
 
-    public void FAILING_testShouldCopyMark() {
+    public void testShouldCopyMark() {
         assumeClipboardIs("This is previous text");
         Editor editor = createEditorWithText("01234567890123456789");
         CaretModel caretModel = editor.getCaretModel();

@@ -27,6 +27,25 @@ public class MarkManagerTest extends MarkTestCase {
         assertEquals(6, listener.getCurrentOffset());
     }
 
+    public void testShouldResetMarkIfMarkAlreadySet() {
+        Editor editor = createEditorWithText("Some text");
+        CaretModel caretModel = editor.getCaretModel();
+        caretModel.moveToOffset(4);
+
+        markManager.setMark(editor);
+        caretModel.moveToOffset(6);
+        markManager.setMark(editor);
+        caretModel.moveToOffset(8);
+
+        Map<Editor,MarkCaretListener> editorMarks = markManager.getEditorMarks();
+        assertNotNull(editorMarks);
+        MarkCaretListener listener = editorMarks.get(editor);
+        assertNotNull(listener);
+        assertEquals(6, listener.getOriginalOffset());
+        assertEquals(8, listener.getCurrentOffset());
+    }
+
+
     public void testShouldSetSelectionToMarkRange() {
         assumeClipboardIs("This is previous text");
         Editor editor = createEditorWithText("012345678901234567890123456789");

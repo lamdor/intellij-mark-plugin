@@ -36,6 +36,12 @@ public class MarkManager implements ApplicationComponent {
 
     public void setMark(Editor editor) {
         CaretModel caretModel = editor.getCaretModel();
+
+        MarkCaretListener markCaretListener = editorMarks.get(editor);
+        if (markCaretListener != null) {
+            caretModel.removeCaretListener(markCaretListener);
+        }
+
         SelectionModel selectionModel = editor.getSelectionModel();
         MarkCaretListener listener = new MarkCaretListener(caretModel);
         caretModel.addCaretListener(listener);
