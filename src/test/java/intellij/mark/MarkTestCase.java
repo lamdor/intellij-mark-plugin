@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarkTestCase extends LightIdeaTestCase {
+public abstract class MarkTestCase extends LightIdeaTestCase {
     private EditorFactory editorFactory;
     private List<Editor> openEditors;
     private Editor currentEditor;
