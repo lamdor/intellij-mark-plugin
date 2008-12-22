@@ -17,7 +17,9 @@
     </application-components>
     <name>IntelliJ IDEA Mark Plugin</name>
     <description>This IntelliJ IDEA plugin mimics the mark functionality of emacs</description>
-    <version>0.1-alpha</version>
-    <vendor>Luke Amdor</vendor>
+    <version>0.2-alpha</version>
+    <vendor email="luke.amdor@gmail.com" url="http://github.com/rubbish/intellij-mark-plugin">
+        Luke Amdor
+    </vendor>
     <idea-version since-build="8000"/>
 </idea-plugin>
