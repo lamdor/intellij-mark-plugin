@@ -58,6 +58,7 @@ public class MarkManager implements ApplicationComponent {
 
     public void exchangePointAndMark(Editor editor) {
         MarkCaretListener markCaretListener = editorMarks.get(editor);
+        if (markCaretListener == null) return;
 
         markCaretListener.exchange();
 

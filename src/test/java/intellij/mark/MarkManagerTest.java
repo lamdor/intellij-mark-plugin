@@ -94,6 +94,17 @@ public class MarkManagerTest extends MarkTestCase {
         assertEquals("5678901234", editor.getSelectionModel().getSelectedText());
     }
 
+    public void testShouldDoNothingIfNoMarkForExchangePointAndMark() {
+        Editor editor = createEditorWithText("012345678901234567890123456789");
+        CaretModel caretModel = editor.getCaretModel();
+
+        caretModel.moveToOffset(15);
+
+        markManager.exchangePointAndMark(editor);
+
+        assertEquals(15, caretModel.getOffset());
+    }
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
