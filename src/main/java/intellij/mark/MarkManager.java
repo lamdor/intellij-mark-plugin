@@ -2,8 +2,6 @@ package intellij.mark;
 
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.editor.*;
-import com.intellij.openapi.ide.CopyPasteManager;
-import com.intellij.openapi.actionSystem.ActionManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -53,15 +51,9 @@ public class MarkManager implements ApplicationComponent {
         SelectionModel selectionModel = editor.getSelectionModel();
         MarkCaretListener markCaretListener = editorMarks.get(editor);
         if (markCaretListener != null) {
-            setSelection(selectionModel, markCaretListener);
-            editor.getCaretModel().removeCaretListener(markCaretListener);
-            editorMarks.remove(editor);
+            selectionModel.setSelection(markCaretListener.getOriginalOffset(), markCaretListener.getCurrentOffset());
         }
         return selectionModel;
-    }
-
-    private void setSelection(SelectionModel selectionModel, MarkCaretListener markCaretListener) {
-        selectionModel.setSelection(markCaretListener.getOriginalOffset(), markCaretListener.getCurrentOffset());
     }
 
     public void exchangePointAndMark(Editor editor) {
@@ -72,6 +64,6 @@ public class MarkManager implements ApplicationComponent {
         CaretModel model = editor.getCaretModel();
         model.moveToOffset(markCaretListener.getCurrentOffset());
 
-        setSelection(editor.getSelectionModel(), markCaretListener);
+        setSelectionToMarkRange(editor);
     }
 }
