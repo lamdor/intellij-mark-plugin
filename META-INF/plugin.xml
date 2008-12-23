@@ -6,6 +6,11 @@
             <add-to-group group-id="ToolsMenu" anchor="last"/>
             <add-to-group group-id="EditorActions" anchor="last"/>
         </action>
+        <action id="intellij.mark.ExchangePointAndMarkAction" class="intellij.mark.ExchangePointAndMarkAction" text="Exchange Point And Mark"
+                description="Exchanges the mark and the current position of caret/point">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <add-to-group group-id="EditorActions" anchor="last"/>
+        </action>
     </actions>
     <application-components>
         <component>
