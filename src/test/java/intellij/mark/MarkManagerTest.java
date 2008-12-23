@@ -75,6 +75,25 @@ public class MarkManagerTest extends MarkTestCase {
 
     }
 
+    public void testShouldExchangePointAndMark() {
+        Editor editor = createEditorWithText("012345678901234567890123456789");
+        CaretModel caretModel = editor.getCaretModel();
+        caretModel.moveToOffset(5);
+
+        markManager.setMark(editor);
+
+        caretModel.moveToOffset(15);
+
+        markManager.exchangePointAndMark(editor);
+
+        assertEquals(5, caretModel.getOffset());
+
+        MarkCaretListener markCaretListener = markManager.getEditorMarks().get(editor);
+        assertEquals(5, markCaretListener.getCurrentOffset());
+        assertEquals(15, markCaretListener.getOriginalOffset());
+        assertEquals("5678901234", editor.getSelectionModel().getSelectedText());
+    }
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();

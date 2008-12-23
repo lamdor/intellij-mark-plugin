@@ -53,11 +53,25 @@ public class MarkManager implements ApplicationComponent {
         SelectionModel selectionModel = editor.getSelectionModel();
         MarkCaretListener markCaretListener = editorMarks.get(editor);
         if (markCaretListener != null) {
-            selectionModel.setSelection(markCaretListener.getOriginalOffset(), markCaretListener.getCurrentOffset());
+            setSelection(selectionModel, markCaretListener);
             editor.getCaretModel().removeCaretListener(markCaretListener);
             editorMarks.remove(editor);
         }
         return selectionModel;
     }
 
+    private void setSelection(SelectionModel selectionModel, MarkCaretListener markCaretListener) {
+        selectionModel.setSelection(markCaretListener.getOriginalOffset(), markCaretListener.getCurrentOffset());
+    }
+
+    public void exchangePointAndMark(Editor editor) {
+        MarkCaretListener markCaretListener = editorMarks.get(editor);
+
+        markCaretListener.exchange();
+
+        CaretModel model = editor.getCaretModel();
+        model.moveToOffset(markCaretListener.getCurrentOffset());
+
+        setSelection(editor.getSelectionModel(), markCaretListener);
+    }
 }

@@ -26,4 +26,11 @@ public class MarkCaretListener implements CaretListener {
         currentOffset = caretModel.getOffset();
     }
 
+    public void exchange() {
+        int orig = originalOffset;
+        originalOffset = currentOffset;
+        currentOffset = orig;
+        System.out.println("originalOffset = " + originalOffset);
+        System.out.println("currentOffset = " + currentOffset);
+    }
 }
