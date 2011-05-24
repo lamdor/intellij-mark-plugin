@@ -9,7 +9,7 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.ide.CopyPasteManager;
-import com.intellij.testFramework.LightIdeaTestCase;
+import com.intellij.testFramework.LightPlatformTestCase;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MarkTestCase extends LightIdeaTestCase {
+public abstract class MarkTestCase extends LightPlatformTestCase {
     private EditorFactory editorFactory;
     private List<Editor> openEditors;
     private Editor currentEditor;
